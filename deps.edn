@@ -11,6 +11,11 @@
          :main-opts    ["-m" "clj-kondo.main"
                         "--lint" "src" "test"
                         "--fail-level" "error"]}
+  ;; The governed-scenario harness: runs the real StateGraph over a table of
+  ;; requests and exits non-zero if it demonstrated no refusal. Separate from
+  ;; :test because a zero-refusal table is a defect in the table, and that is a
+  ;; different report from a failing assertion.
+  :sim {:main-opts ["-m" "sysanalysis.sim"]}
   :test {:extra-paths ["test"]
          :extra-deps {io.github.cognitect-labs/test-runner
                       {:git/tag "v0.5.1" :git/sha "dfb30dd6605cb6c0efc275e1df1736f6e90d4d73"}}
