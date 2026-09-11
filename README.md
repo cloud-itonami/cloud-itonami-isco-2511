@@ -45,14 +45,14 @@ an empty or uncitable registered requirement set, and an unusable
 ## Running it
 
 ```bash
-clojure -M:test   # unit tests
-clojure -M:sim    # governed-scenario harness over the real StateGraph
-clojure -M:lint   # clj-kondo, errors fail
+kbb -M:test   # unit tests
+kbb -M:sim    # governed-scenario harness over the real StateGraph
+kbb -M:lint   # clj-kondo, errors fail
 ```
 
 ### The scenario harness refuses to report a pass on a green nothing
 
-`clojure -M:sim` runs a table of requests through the **real** graph and
+`kbb -M:sim` runs a table of requests through the **real** graph and
 counts refusals. It exits non-zero when the refusal count is zero:
 
 ```
