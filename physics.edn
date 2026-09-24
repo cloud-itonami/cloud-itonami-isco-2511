@@ -1,0 +1,33 @@
+;; What this vertical's robot physically does, declared for
+;; kotoba.robotics.process (kotoba-lang/robotics). `kbb -M:physics` runs it.
+;;
+;; ISCO 2511, systems analysts. The README calls this pure-cognitive work with no robotics
+;; gate; blueprint.edn nevertheless declares :itonami.blueprint/robotics true.
+;; The physical work declared here is the handling the occupation itself
+;; entails (ASSUMPTION, not stated in the README): wheeling a staging cart of client laptops to the user-acceptance-test room, and placing workstation towers on the test desks.
+;; Replace with the README premise once one is written.
+;;
+;; Every number without a cited source is marked `estimate` in its :basis.
+;; Replacing an estimate with a sourced value is this bot's growth work.
+{:physics/schema "itonami.physical-ai.spec.v1"
+ :repo "cloud-itonami/cloud-itonami-isco-2511"
+ :cases
+ [{:id :uat-laptop-cart
+   :kind :transport
+   :procedure "AMR tows the staging cart of client laptops from IT stores to the user-acceptance-test room"
+   :params {:mass-kg 45.0 :distance-m 55.0 :v-max-mps 1.0 :a-max-mps2 0.5
+            :brake-decel-mps2 0.7 :drive-force-n 60.0 :crr 0.02
+            :cog-height-m 0.75 :support-half-length-m 0.28}
+   :sweep {:param :payload-kg :values [10.0 30.0 60.0 90.0 120.0]}
+   :quantity :cycle-time-s
+   :limit {:max 70.0 :basis "estimate: a cart leg within 70 s keeps UAT room setup under the 10-minute slot between test sessions"}
+   :boundary {:lo 5.0 :hi 250.0}}
+  {:id :workstation-onto-test-desk
+   :kind :manipulator
+   :procedure "arm lifts a workstation tower from the cart onto a UAT test desk"
+   :params {:l1-m 0.50 :l2-m 0.45 :m1-kg 5.0 :m2-kg 3.5
+            :from [0.55 -0.30] :to [0.60 0.15] :duration-s 2.5 :steps 500}
+   :sweep {:param :payload-kg :values [4.0 7.0 10.0 13.0 16.0]}
+   :quantity :peak-tau1-nm
+   :limit {:max 150.0 :basis "estimate: continuous shoulder torque of a 10 kg-payload class collaborative arm"}
+   :boundary {:lo 0.5 :hi 60.0}}]}
