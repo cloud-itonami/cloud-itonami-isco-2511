@@ -1,7 +1,7 @@
 (ns sysanalysis.governor
   "SystemsAnalysisGovernor — the independent safety/traceability layer for the
   ISCO-08 2511 community systems-analysis actor (itonami actor pattern,
-  ADR-2607011000 / CLAUDE.md Actors section). Modeled on
+  ADR-2607011000 / AGENTS.md Actors section). Modeled on
   cloud-itonami-isco-4311's bookkeeping.governor. Systems-analysis twist: a
   design's requirement coverage is the TOTALITY of a relation — every
   registered requirement maps to at least one registered component, or the
